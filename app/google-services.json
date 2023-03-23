@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "46196723457",
+    "firebase_url": "https://ujikom-85016-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ujikom-85016",
+    "storage_bucket": "ujikom-85016.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46196723457:android:8a6e72cd0ec32e67d89500",
+        "android_client_info": {
+          "package_name": "com.example.loginregisterfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46196723457-m944s19m6utuj4hbokkr06ht9o46apld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA28MhdebuF97DsmIFbTscbgqURK58F9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46196723457-m944s19m6utuj4hbokkr06ht9o46apld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
