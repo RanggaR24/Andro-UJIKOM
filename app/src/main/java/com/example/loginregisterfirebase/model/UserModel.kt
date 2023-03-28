@@ -1,6 +1,7 @@
 package com.example.loginregisterfirebase.model
 
 import android.content.ContentValues.TAG
+import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -14,10 +15,10 @@ class UserModel {
         val db = FirebaseFirestore.getInstance()
         val user = hashMapOf(
             "nama" to namaPelapor,
-            "Notelp" to Notelp,
+            "no_telp" to Notelp,
             "lokasi" to lokasikejadian,
-            "tgl" to tanggalKejadian,
-            "isilaporan" to isilaporan
+            "tgl_kejadian" to tanggalKejadian,
+            "isi_laporan" to isilaporan
         )
 
         db.collection("pengaduan")
@@ -27,4 +28,17 @@ class UserModel {
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
     }
+//    private val db = FirebaseFirestore.getInstance()
+//    fun readData(onSuccess: (List<Map<String, Any>>) -> Unit, onFailure: (Exception) -> Unit) {
+//        db.collection("pengaduan")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                val dataList = mutableListOf<Map<String, Any>>()
+//                for (document in result) {
+//                    dataList.add(document.data)
+//                }
+//                onSuccess(dataList)
+//            }
+//            .addOnFailureListener(onFailure)
+//    }
 }

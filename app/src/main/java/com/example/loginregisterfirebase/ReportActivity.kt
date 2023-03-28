@@ -14,7 +14,7 @@ class ReportActivity : AppCompatActivity() {
     private lateinit var inputLokasi: EditText
     private lateinit var inputTanggal : EditText
     private lateinit var inputLaporan : EditText
-    private lateinit var btnPost : Button
+    private lateinit var btnsendlaporan : Button
     private lateinit var userModel: UserModel
 
 
@@ -23,37 +23,72 @@ class ReportActivity : AppCompatActivity() {
         setContentView(R.layout.activity_report)
         initView()
 
-        btnPost.setOnClickListener {
-            userModel.create(
-                tnama.text.toString(),
-                tnotelp.text.toString(),
-                inputLokasi.text.toString(),
-                inputTanggal.text.toString(),
-                inputLaporan.text.toString())}
-            clear()
-
-
+        btnsendlaporan.setOnClickListener {
+            if (validateForm()) {
+                userModel.create(
+                    tnama.text.toString(),
+                    tnotelp.text.toString(),
+                    inputLokasi.text.toString(),
+                    inputTanggal.text.toString(),
+                    inputLaporan.text.toString()
+                )
+                btnsendlaporan.isEnabled = true
+                clear()
+            }
         }
+    }
+
     private fun initView() {
         tnama = findViewById(R.id.txtinputNama)
         tnotelp = findViewById(R.id.txtinputTelepon)
         inputLokasi = findViewById(R.id.txtinputLokasi)
         inputTanggal = findViewById(R.id.txtinputTanggal)
         inputLaporan = findViewById(R.id.txtinputLaporan)
-        btnPost = findViewById(R.id.btnsendlaporan)
+        btnsendlaporan = findViewById(R.id.btnsendlaporan)
 
         userModel = UserModel()
     }
+
     private fun clear(){
         tnama.setText("")
         tnotelp.setText("")
         inputLokasi.setText("")
         inputTanggal.setText("")
         inputLaporan.setText("")
-        btnPost.setEnabled(false)
+    }
 
+    fun validateForm(): Boolean {
+        var isValid = true
+
+        if (tnama.text.toString().isEmpty()) {
+            tnama.error = "Nama harus di isi"
+            isValid = false
+        }
+
+        if (tnotelp.text.toString().isEmpty()) {
+            tnotelp.error = "Telepon harus di isi"
+            isValid = false
+        }
+
+        if (inputLokasi.text.toString().isEmpty()) {
+            inputLokasi.error = "Lokasi harus di isi"
+            isValid = false
+        }
+
+        if (inputTanggal.text.toString().isEmpty()) {
+            inputTanggal.error = "Tanggal harus di isi"
+            isValid = false
+        }
+
+        if (inputLaporan.text.toString().isEmpty()) {
+            inputLaporan.error = "Laporan harus di isi"
+            isValid = false
+        }
+
+        return isValid
     }
 }
+
 
 
 
