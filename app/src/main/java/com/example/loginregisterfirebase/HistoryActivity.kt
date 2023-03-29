@@ -1,48 +1,65 @@
 package com.example.loginregisterfirebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import android.widget.Toast
-import com.example.loginregisterfirebase.databinding.ActivityHistoryBinding
-import com.example.loginregisterfirebase.model.UserModel
-import com.google.firebase.auth.FirebaseAuth
+import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 class HistoryActivity : AppCompatActivity() {
-    private lateinit var tvNama: TextView
-    private lateinit var tvLaporan: TextView
-    private lateinit var tvLokasi: TextView
+    lateinit var dataSets: MutableList<Report>
+    lateinit var rView: RecyclerView
+    lateinit var backIcon: ImageView
+    private var adapter: HistoryAdapter<Any?, Any?>? = null
+    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    private var db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        tvNama = findViewById(R.id.tvNama)
-        tvLaporan = findViewById(R.id.tvLaporan)
-        tvLokasi = findViewById(R.id.tvLokasi)
+        dataSets = mutableListOf()
+        initView()
+        getData()
 
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        val ref = db.collection("pengaduan").document(userId)
-        ref.get().addOnSuccessListener {
-            if (it != null) {
-                val nama = it.data?.get("nama")?.toString()
-                val laporan = it.data?.get("isi_laporan")?.toString()
-                val lokasi = it.data?.get("lokasi")?.toString()
-
-                tvNama.text = nama
-                tvLaporan.text = laporan
-                tvLokasi.text = lokasi
-            }
-        }
-            .addOnFailureListener {Toast.makeText(this,"Failed!", Toast.LENGTH_SHORT).show()
-            }
-
-
+//        backIcon = findViewById(R.id.back)
+//        backIcon.setOnClickListener {
+//            startActivity(Intent(this, MainActivity::class.java))
+//        }
     }
 
+    private fun getData() {
+        db.collection("pengaduan")
+            .whereEqualTo("nama", "Rangga Ramadhan") // kondisi pencarian
+            .get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                val documentId = document.id
+                val nama = document["nama"].toString()
+                val tanggal = document["tgl_kejadian"].toString()
+                val no_telp = document["no_telp"].toString()
+                val lokasi = document["lokasi"].toString()
+                val isi_laporan = document["isi_laporan"].toString()
+                dataSets.add(Report(documentId, nama, tanggal, lokasi, isi_laporan,))
+            }
+            for (dataItem in dataSets){
+                adapter?.addItem(ArrayList(dataSets))
+                adapter?.notifyDataSetChanged()
+            }
+        }
+
+//        adapter?.setOnClickItem {
+//            val intent = Intent(this, DetailActivity::class.java)
+//            intent.putExtra("documentId", it.documentId)
+//            startActivity(intent)
+//        }
+    }
+    private fun initView() {
+        rView = findViewById(R.id.rview)
+
+        rView.layoutManager = LinearLayoutManager(this)
+        adapter = HistoryAdapter()
+        rView.adapter = adapter
+    }
 }

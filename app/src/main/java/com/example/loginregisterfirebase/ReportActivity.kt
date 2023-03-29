@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.loginregisterfirebase.model.UserModel
 import com.google.firebase.firestore.auth.User
 
@@ -34,6 +35,9 @@ class ReportActivity : AppCompatActivity() {
                 )
                 btnsendlaporan.isEnabled = true
                 clear()
+                Toast.makeText(this, "Laporan berhasil dikirim", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Laporan gagal dikirim. Mohon isi semua data dengan benar", Toast.LENGTH_SHORT).show()
             }
         }
     }

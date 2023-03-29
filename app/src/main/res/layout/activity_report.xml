@@ -19,9 +19,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Form Laporan Masyarakat"
+                android:text="Form Laporan"
                 android:textStyle="bold"
                 android:textSize="24sp"
+                android:fontFamily="@font/boogaloo"
                 android:layout_marginBottom="16dp"/>
 
             <EditText
@@ -64,7 +65,9 @@
                 android:id="@+id/btnsendlaporan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kirim Laporan"/>
+                android:text="Kirim Laporan"
+                android:backgroundTint="@color/blue"
+                android:textColor="@color/abu_abu"/>
 
         </LinearLayout>
 
